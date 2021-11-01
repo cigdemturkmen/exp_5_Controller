@@ -9,30 +9,42 @@ namespace exp_5_Controller.Controllers
 {
     public class HomeController : Controller
     {
-        /*geri dönüşler
-         -ActionResult
-         -ContentResult
-        -
-        -
+        /*
+         * Json (JavaScript Object Notation): bütün programlama dilleri arasında, yapılandırılmış veri değişimini kolaylaştıran BİR METİN BİÇİMİDİR..
+         * 
+         Action methods are responsible to EXECUTE THE REQUEST and GENERATE A RESPONSE to it. All the public methods of the MVC Controller are action methods. If we want the public method to be a non-action method, then we can decorate the action method by “NonAction” attribute
+         
+         geri dönüşler
+         - ActionResult
+         - ContentResult : It displays the response without requiring a view .(like a plain text)
+         - FileResult : Return a file from an action. (Pdf,Excel,image file,Html…)
+         - JsonResult : Action methods return JsonResult that can be used in ajax based application.
 
-        action attribute'leri
+        -----------------
+
+        - ViewResult
+        - PartialViewResult
+        - RedirectResult: It is used to perform an HTTP redirect to a given URL. {  return Redirect(“http://www.google.com/”); }
+        - RedirectToRouteResult : redirect by using the specified route values dictionary
+        - EmptyResult
+        - JavaScriptResult
+
+        ***Action attribute'lerinden birkaçı: [ActionName(string)], [OutputCache(Duration =360)], [HttpGet], [HttpPost]
         
          */
 
-        //home/index
-        //[HttpGet]
-        //[HttpPost]
-        [ActionName("anasayfa")] //home/anasayfa
+        // home/index
+        [ActionName("anasayfa")] // home/index yerine -> home/anasayfa yazarak sayfaya ulaşabiliriz.
         public ActionResult Index()
         {
             return View();
         }
 
-        [OutputCache(Duration =360)] //1 saat boyunca bu action'a girmez. server side cashe
-        public ContentResult Hakkimizda()  /*content result için view'a ihtiyaç yok */
+        [OutputCache(Duration =360)] //1 saat boyunca bu action'a girmez. veri server side cashe'de tutulur. istek gelince cashe'den dönülür.
+        public ContentResult Hakkimizda()  /* ContentResult için view'a ihtiyaç yok. */
         {
-            var str = "<h1>Hoşgeldiniz, burası hakkımızda sayfası</h1>";
-            str += "<h2>selam</h2>";
+            var str = "<h1>Hoşgeldiniz, burası hakkımızda sayfası!</h1>";
+            str += "<h2>Şöyle buyurun...</h2>";
             return Content(str);
         }
 
@@ -51,10 +63,10 @@ namespace exp_5_Controller.Controllers
                 new Student {Id=3, Ad="Leyla", Soyad="Taş"},
                 new Student {Id=4, Ad="Bahar", Soyad="Taşbaş"},
             };
-            // json: javascript object notation. bir file standartı. bir sayfadan bir sayfaya veri taşıma standardı. XML.(okunurluğu jsona göre az) web APIda daha çok kullanıcaz.
+            // json: javascript object notation. bir file standartı. bir sayfadan bir sayfaya veri taşıma standardı. XML.(okunurluğu jsona göre az) web APIda daha çok kullanıcaz bunları.
            
 
-            return Json(ogrenciler, JsonRequestBehavior.AllowGet); //json isteğine izin vermemiz gerekiyor.
+            return Json(ogrenciler, JsonRequestBehavior.AllowGet); // json isteğine izin vermemiz gerekiyor(JsonRequestBehaviour.AllowGet)
         }
     }
 }
