@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>Burası Index Sayfası</h1>
+
+        <a href="/home/indir">Dosyayı indir!</a>
+
+        <button type="button" id="btnGetir">Öğrencileri getir</button>
+    </div>
+
+
+    <ul id="liste">
+        <li></li>
+    </ul>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        // home/GetStudents  ...type/method: 'GET' ---uzaktaki adrese/sunucuya istek atma
+        $(function () {
+            $('#btnGetir').click(function () {
+
+                $.ajax({
+                    url: '/home/GetStudents',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        /*debugger*/
+                        console.log(result);
+
+                        for (var i = 0; i < result.length; i++) {
+                            var item = result[i];
+
+                            $('#liste').append(`<li>${item.Ad} ${item.Soyad}</li>`);
+                        }
+                        //$.each() -> foreach'in jQuerydeki kullanımı...
+                    }
+                });
+
+            });
+
+        });
+    </script>
+</body>
+</html>
